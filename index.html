@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商談前仮説立てBot｜ご利用ガイド</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+    :root {
+      --dark-green: #102e24;
+      --green: #2e724c;
+      --light-green: #A8D5BA;
+      --orange: #F5A623;
+      --bg: #f7f9f7;
+      --white: #ffffff;
+      --text: #1a2e24;
+      --text-muted: #5a6f64;
+      --border: #d0e4d8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Meiryo', 'メイリオ', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--dark-green);
+      padding: 28px 48px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-wrap svg {
+      height: 32px;
+      width: auto;
+    }
+
+    .header-badge {
+      background: var(--orange);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--dark-green);
+      padding: 0 48px 52px;
+      border-bottom: 4px solid var(--orange);
+    }
+
+    .hero-inner {
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero-sub {
+      color: var(--light-green);
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== MAIN ===== */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ===== SECTION TITLE ===== */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark-green);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--light-green);
+    }
+
+    .section-num {
+      background: var(--green);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark-green);
+      margin-bottom: 10px;
+    }
+
+    .card p, .card li {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    .card ul {
+      padding-left: 1.2em;
+    }
+
+    /* ===== PURPOSE BOX ===== */
+    .purpose-box {
+      background: var(--dark-green);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin-bottom: 40px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .purpose-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+      line-height: 1;
+      padding-top: 2px;
+    }
+
+    .purpose-box h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+
+    .purpose-box p {
+      font-size: 13px;
+      color: var(--light-green);
+      line-height: 1.9;
+    }
+
+    /* ===== STEP FLOW ===== */
+    .step-flow {
+      display: flex;
+      gap: 0;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .step-item {
+      flex: 1;
+      min-width: 200px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 20px 20px 20px 28px;
+      position: relative;
+    }
+
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+      border-left: 14px solid var(--light-green);
+      z-index: 2;
+    }
+
+    .step-item:first-child { border-radius: 8px 0 0 8px; }
+    .step-item:last-child { border-radius: 0 8px 8px 0; }
+
+    .step-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .step-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark-green);
+      margin-bottom: 4px;
+    }
+
+    .step-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ===== CODE BLOCK ===== */
+    .code-block {
+      background: #0d2318;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 12px 0;
+      position: relative;
+    }
+
+    .code-block pre {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: #a8d5ba;
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.8;
+    }
+
+    .code-block .code-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ===== INPUT TABLE ===== */
+    .input-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .input-table th {
+      background: var(--dark-green);
+      color: var(--white);
+      padding: 10px 16px;
+      text-align: left;
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    .input-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.7;
+    }
+
+    .input-table tr:last-child td { border-bottom: none; }
+
+    .input-table tr:nth-child(even) td {
+      background: #f3f8f5;
+    }
+
+    .tag-required {
+      background: var(--orange);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-left: 4px;
+    }
+
+    .tag-optional {
+      background: #d0e4d8;
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-left: 4px;
+    }
+
+    /* ===== OUTPUT SECTION ===== */
+    .output-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .output-grid { grid-template-columns: 1fr; }
+    }
+
+    .output-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 16px;
+    }
+
+    .output-item .out-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .output-item .out-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--dark-green);
+    }
+
+    /* ===== DRILL-DOWN TABLE ===== */
+    .drill-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .drill-table th {
+      background: var(--green);
+      color: var(--white);
+      padding: 10px 16px;
+      text-align: left;
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    .drill-table td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .drill-table tr:last-child td { border-bottom: none; }
+
+    .drill-table tr:nth-child(even) td { background: #f3f8f5; }
+
+    .keyword-tag {
+      display: inline-block;
+      background: var(--dark-green);
+      color: var(--light-green);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* ===== STRATEGY RULES ===== */
+    .rule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rule-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .rule-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      padding-top: 1px;
+    }
+
+    .rule-content h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark-green);
+      margin-bottom: 3px;
+    }
+
+    .rule-content p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .rule-content .do {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .rule-content .dont {
+      color: #c0392b;
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+
+    /* ===== NOTE BOX ===== */
+    .note-box {
+      background: #fff9ee;
+      border: 1px solid #f5d88a;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 13px;
+      color: #7a5c10;
+      line-height: 1.8;
+      margin-top: 8px;
+    }
+
+    .note-box strong { color: #b07010; }
+
+    /* ===== SECTION SPACING ===== */
+    .section {
+      margin-bottom: 52px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark-green);
+      padding: 24px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer .logo-wrap svg {
+      height: 24px;
+    }
+
+    footer p {
+      font-size: 11px;
+      color: #6a9a7e;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4362.78 815">
+      <defs><style>.lc1{fill:#2e724c}.lc2{fill:#ffffff}</style></defs>
+      <g>
+        <path class="lc2" d="m579.22,495.4c-26.73,41.19-72.38,68.34-124.22,68.34-82.38,0-149.17-68.54-149.17-153.09,0-3.89.19-7.72.47-11.54,3.63-78.8,67.03-141.55,144.71-141.55,49.8,0,93.71,25.79,119.79,65.06l73.45-37.69-.6-1.06-28.79-51.68c-10.55-18.75-29.99-45.18-46.27-59.23l-11.53-9.94h-256.34l-109.13,193.89-28.5,50.97,28.5,49.8,109.13,194.07h256.33c21.09-15.68,44.6-46.21,57.48-69.12h0l26.22-46.6,3.03-5.38.6-1.07-65.17-34.17Z"/>
+        <path class="lc2" d="m1685.92,217.49h202.63c114.56,0,153.97,50.5,153.97,113.94,0,73.29-66.52,94.23-93,97.31,41.88,3.69,109.63,25.25,109.63,101.63s-71.44,121.95-160.13,121.95h-213.1V217.49Zm185.39,171.83c23.4,0,64.67-1.85,64.67-46.81,0-41.88-36.34-43.73-57.28-43.73h-89.3v90.54h81.91Zm-6.16,184.15c35.11,0,83.76-1.85,83.76-51.74,0-52.35-43.73-53.58-65.9-53.58h-93.61v105.32h75.75Z"/>
+        <path class="lc2" d="m2600.18,643.76v-196.53c0-29.91-8.55-54.93-46.39-54.93-43.33,0-49.44,30.52-49.44,73.24v178.22h-93.99v-318.6h95.21v28.07c15.26-18.31,45.17-36.01,89.72-36.01,64.7,0,98.87,32.96,98.87,97.65v228.88h-93.99Z"/>
+        <path class="lc2" d="m782.34,329.98v33.35c8.03-6.79,16.67-15.44,37.67-24.08,25.94-10.5,43.85-12.35,55.58-12.97v83.99l-31.5,4.94c-50.02,8.03-59.29,21-59.29,55.58v181.57h-94.49v-322.37h92.02Z"/>
+        <path class="lc2" d="m1551.43,329.98v-93.25h-93.87v93.25h-110.55v-11.73c0-23.47,3.09-31.5,42.61-31.5h17.29v-71.64c-3.71-.62-34.58-5.56-56.82-5.56-55.58,0-96.96,25.94-96.96,81.52v38.9h-50.64v7.41h0v58.05h0v4.89h50.64v252.02h94.49v-252.02h109.93v163.09c0,75.35,40.14,91.4,92.02,91.4,34.58,0,53.73-3.71,59.9-4.94v-73.49s-26.56.62-33.35.62c-14.82,0-24.7-4.94-24.7-26.56v-150.12h62.99v-70.36h-62.99Z"/>
+        <path class="lc2" d="m1176.78,652.35v-106.02h0v-132.36c0-77.81-83.37-92.64-138.95-92.64-70.4,0-135.87,29.03-135.87,100.05h95.11c2.47-14.2,9.88-37.67,50.02-37.67,34.58,0,36.44,27.79,36.44,38.91v17.91c-71.02,13.59-104.99,20.38-127.22,29.64-40.14,16.68-67.93,52.49-67.93,92.64,0,46.32,32.11,98.19,105.6,98.19,49.41,0,73.49-21,98.81-37.67v29.03h83.99Zm-93.25-140.19c0,45.7-28.41,79.05-65.46,79.05-27.17,0-36.44-21.61-36.44-32.73,0-14.21,8.03-29.64,40.76-40.14l61.14-20.38v14.2Z"/>
+        <path class="lc2" d="m2374.54,643.76v-104.77h0v-130.82c0-76.9-82.4-91.55-137.33-91.55-69.58,0-134.28,28.69-134.28,98.87h93.99c2.44-14.04,9.77-37.23,49.44-37.23,34.18,0,36.01,27.47,36.01,38.45v17.7c-70.19,13.43-103.76,20.14-125.73,29.29-39.67,16.48-67.14,51.88-67.14,91.55,0,45.78,31.74,97.04,104.37,97.04,48.83,0,72.63-20.75,97.65-37.23v28.69h83.01Zm-92.16-138.55c0,45.17-28.08,78.12-64.7,78.12-26.86,0-36.01-21.36-36.01-32.35,0-14.04,7.94-29.29,40.28-39.67l60.42-20.14v14.04Z"/>
+        <polygon class="lc2" points="2730 212.85 2730 643.75 2821.55 643.75 2821.55 544.88 2822.16 434.41 2822.16 212.85 2730 212.85"/>
+        <polygon class="lc2" points="2943.62 438.68 3053.48 325.16 2940.57 325.16 2837.42 434.41 2943.62 438.68"/>
+        <polygon class="lc1" points="2943.62 438.68 2837.42 434.41 2919.42 577.5 2958.88 643.75 3067.52 643.75 2943.62 438.68"/>
+        <path class="lc2" d="m3122.27,528.97c0-76.21,54.03-120.56,112.5-120.56s112.1,44.35,112.1,120.56-54.03,120.17-112.1,120.17-112.5-44.36-112.5-120.17Zm151.21,0c0-38.3-12.1-62.5-38.71-62.5s-39.11,24.2-39.11,62.5,12.09,62.1,39.11,62.1,38.71-24.19,38.71-62.1Z"/>
+        <path class="lc2" d="m3535.57,405.18c0-48.39,22.99-89.52,86.7-89.52,20.16,0,22.97-.25,33.05,3.79l.82,57.1c-7.26-2.83-15.73-4.84-23.39-4.84-15.73,0-25.4,8.47-25.4,31.45v10.88h40.73v56.05h-40.73v173.39h-71.78v-173.39h-75.81v173.39h-71.78v-173.39h-30.65v-53.23l30.65-2.42v-8.06c0-46.78,24.6-86.29,88.71-86.29,20.16,0,25.61.05,36.49,4.49l-.61,56.8c-7.26-3.23-14.11-5.24-26.61-5.24-14.52,0-26.21,9.27-26.21,29.84v8.06h75.81v-8.87Zm142.75-59.68c0-21.78,17.34-37.1,41.13-37.1s41.13,15.32,41.13,37.1-17.34,36.69-41.13,36.69-41.13-15.32-41.13-36.69Zm5.24,68.55h72.18v229.44h-72.18v-229.44Z"/>
+        <path class="lc2" d="m3792.02,528.97c0-76.21,56.45-120.56,120.57-120.56,27.82,0,49.6,9.68,66.94,24.6l-33.47,45.97c-10.48-8.87-19.35-12.5-29.43-12.5-31.45,0-51.21,24.2-51.21,62.5s20.56,62.1,48.79,62.1c14.52,0,28.23-6.86,39.92-16.13l27.42,47.18c-22.18,19.76-51.21,27.02-75.4,27.02-64.52,0-114.12-44.36-114.12-120.17Z"/>
+        <path class="lc2" d="m3992.42,528.97c0-74.6,53.23-120.56,108.87-120.56,66.13,0,98.39,47.98,98.39,110.89,0,12.5-1.61,25.4-3.23,30.65h-134.68c6.45,31.45,28.23,44.36,57.26,44.36,16.53,0,31.86-4.84,48.39-14.52l23.79,43.15c-23.79,16.94-55.24,26.21-82.26,26.21-65.73,0-116.53-44.36-116.53-120.17Zm146.38-25.81c0-22.98-10.09-39.92-36.29-39.92-19.76,0-37.1,12.5-41.94,39.92h78.23Z"/>
+      </g>
+    </svg>
+  </div>
+  <span class="header-badge">営業支援ツール</span>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <h1>商談前仮説立てBot<br><span>ご利用ガイド</span></h1>
+    <p class="hero-sub">工種別ナレッジ × 販売戦略 → 商談前1枚メモを即生成</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- PURPOSE -->
+  <div class="purpose-box">
+    <div class="purpose-icon">🎯</div>
+    <div>
+      <h2>このBotの目的</h2>
+      <p>見込み先の会社情報を入力するだけで、<strong style="color:var(--white)">29工種の業種ナレッジ</strong>と<strong style="color:var(--white)">CBOの販売戦略</strong>を組み合わせた「商談前1枚メモ」を即座に生成します。<br>
+      商談当日の直前でも、工種だけ入力すれば最低限の仮説が手に入ります。情報が多いほど精度が上がります。</p>
+    </div>
+  </div>
+
+  <!-- SECTION 1: BASIC FLOW -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">1</span>
+      基本的な使い方
+    </div>
+
+    <div class="step-flow">
+      <div class="step-item">
+        <div class="step-label">Step 1</div>
+        <div class="step-title">会社情報を入力</div>
+        <div class="step-desc">工種は必須。<br>他の情報があるほど精度向上</div>
+      </div>
+      <div class="step-item">
+        <div class="step-label">Step 2</div>
+        <div class="step-title">商談前メモを受け取る</div>
+        <div class="step-desc">8項目の仮説メモが<br>Markdown形式で出力</div>
+      </div>
+      <div class="step-item">
+        <div class="step-label">Step 3</div>
+        <div class="step-title">必要なら深掘り</div>
+        <div class="step-desc">6つのキーワードで<br>特定ドメインを掘り下げ</div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      💡 <strong>最低限「工種」だけでも動作します。</strong>情報が少ない場合でも仮説メモを出力しますが、会社名・規模・受注形態・エリアを加えると精度が大きく向上します。
+    </div>
+  </div>
+
+  <!-- SECTION 1.5: INPUT METHOD -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">2</span>
+      入力方法：ウィジェット vs チャット直打ち
+    </div>
+
+    <div class="card" style="border-left: 3px solid var(--orange); border-radius: 0 8px 8px 0;">
+      <h3 style="color:var(--orange);">🟠 初めて使う方｜ウィジェットで入力（推奨）</h3>
+      <p style="margin-bottom:12px;">チャットに <strong style="background:#0d2318;color:#a8d5ba;padding:2px 8px;border-radius:4px;font-family:monospace;">起動</strong> と送信するだけで、4ステップの入力フォームが表示されます。項目を選択・入力していくだけで仮説メモが生成されます。</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+        <span style="background:#f3f8f5;border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--dark-green);">Step 1｜工種・規模</span>
+        <span style="color:var(--text-muted);font-size:12px;align-self:center;">→</span>
+        <span style="background:#f3f8f5;border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--dark-green);">Step 2｜受注・体制</span>
+        <span style="color:var(--text-muted);font-size:12px;align-self:center;">→</span>
+        <span style="background:#f3f8f5;border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--dark-green);">Step 3｜補足情報</span>
+        <span style="color:var(--text-muted);font-size:12px;align-self:center;">→</span>
+        <span style="background:var(--orange);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--white);font-weight:700;">Step 4｜生成</span>
+      </div>
+      <div class="code-block" style="margin-top:8px;">
+        <div class="code-label">チャットへの入力</div>
+        <pre>起動</pre>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px;border-left: 3px solid var(--green); border-radius: 0 8px 8px 0;">
+      <h3 style="color:var(--green);">🟢 慣れてきた方｜チャットに直接テキストで投稿</h3>
+      <p style="margin-bottom:10px;">フォーマットを覚えたら、チャットに会社情報を直接テキストで貼り付けるだけで動作します。商談直前の素早い仮説出しに便利です。</p>
+      <div class="code-block">
+        <div class="code-label">直接投稿の例</div>
+        <pre>電気工事業・従業員15名・大阪市内・ゼネコン下請中心 → 商談前メモを出して</pre>
+      </div>
+      <p style="margin-top:10px;font-size:12px;color:var(--text-muted);">情報が多いほど精度が上がります。工種だけでも最低限のメモは出力されます。</p>
+    </div>
+
+  </div>
+
+  <!-- SECTION 2: INPUT FORMAT -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">3</span>
+      インプット形式
+    </div>
+
+    <div class="card">
+      <h3>推奨フォーマット</h3>
+      <div class="code-block">
+        <div class="code-label">入力例（詳細版）</div>
+        <pre>【会社名】○○工業株式会社
+【工種】電気工事業（強電・ビル幹線）
+【規模】従業員20名・年商2億円程度
+【受注形態】ゼネコン下請 8割、直受け 2割
+【エリア】大阪府北部
+【その他】社長が積算・現場管理を兼務。事務員1名。
+
+→ 商談前メモを出して</pre>
+      </div>
+
+      <div class="code-block" style="margin-top:12px;">
+        <div class="code-label">入力例（簡易版）</div>
+        <pre>電気工事業・従業員15名・大阪市内・ゼネコン下請中心
+
+→ 仮説立てて</pre>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h3>入力項目一覧</h3>
+      <table class="input-table">
+        <thead>
+          <tr>
+            <th style="width:130px">項目</th>
+            <th>内容・補足</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>工種</strong><span class="tag-required">必須</span></td>
+            <td>例：電気工事業、管工事業、塗装工事業、大工工事業 など29工種。専門分野（強電・空調など）があれば記載するとより精度が上がります。</td>
+          </tr>
+          <tr>
+            <td><strong>会社名</strong><span class="tag-optional">任意</span></td>
+            <td>メモのタイトルに使用。なければ工種名で代替します。</td>
+          </tr>
+          <tr>
+            <td><strong>規模</strong><span class="tag-optional">任意</span></td>
+            <td>従業員数・年商。数値シナリオ（導入効果の概算）の精度に直結します。</td>
+          </tr>
+          <tr>
+            <td><strong>受注形態</strong><span class="tag-optional">任意</span></td>
+            <td>ゼネコン下請・直受け・公共工事の比率。訴求の優先順位に影響します。</td>
+          </tr>
+          <tr>
+            <td><strong>エリア</strong><span class="tag-optional">任意</span></td>
+            <td>都道府県・市区町村。地域の市場特性や銀行連携チャネルの絞り込みに使用します。</td>
+          </tr>
+          <tr>
+            <td><strong>その他</strong><span class="tag-optional">任意</span></td>
+            <td>社長の兼務状況、事務スタッフ人数、IT利用状況、後継者問題など自由記載。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 3: OUTPUT -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">4</span>
+      アウトプット内容（商談前1枚メモ）
+    </div>
+
+    <div class="output-grid">
+      <div class="output-item">
+        <div class="out-label">1</div>
+        <div class="out-title">この会社について（工種の文脈）</div>
+      </div>
+      <div class="output-item">
+        <div class="out-label">2</div>
+        <div class="out-title">想定される課題（どんぶり・属人化・書類負荷）</div>
+      </div>
+      <div class="output-item">
+        <div class="out-label">3</div>
+        <div class="out-title">訴求ポイント（売上アップの軸で）</div>
+      </div>
+      <div class="output-item">
+        <div class="out-label">4</div>
+        <div class="out-title">想定される痛みの言語化</div>
+      </div>
+      <div class="output-item">
+        <div class="out-label">5</div>
+        <div class="out-title">数値シナリオ（概算）</div>
+      </div>
+      <div class="output-item">
+        <div class="out-label">6</div>
+        <div class="out-title">比較アンカー（事務員人件費との対比）</div>
+      </div>
+      <div class="output-item">
+        <div class="out-label">7</div>
+        <div class="out-title">銀行連携チャネルでの訴求</div>
+      </div>
+      <div class="output-item">
+        <div class="out-label">8</div>
+        <div class="out-title">初回商談でのおすすめの切り口</div>
+      </div>
+    </div>
+
+    <div class="note-box" style="margin-top:12px;">
+      📄 メモの後に「経営面の仮説を深掘り」「取引基盤について」「現場施工能力について」「管理体制について」という案内が自動で出ます。気になるキーワードをそのまま送ってください。
+    </div>
+  </div>
+
+  <!-- SECTION 4: DRILL DOWN -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">5</span>
+      深掘りモード
+    </div>
+
+    <div class="card">
+      <p style="margin-bottom:14px;">メモ出力後、以下のキーワードを送信すると該当ドメインを深掘りします。</p>
+      <table class="drill-table">
+        <thead>
+          <tr>
+            <th style="width:200px">送るキーワード</th>
+            <th>深掘りされる内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="keyword-tag">経営面の仮説を深掘り</span></td>
+            <td>経営者の意思決定スタイル・後継者問題・利益率の読み・銀行との関係</td>
+          </tr>
+          <tr>
+            <td><span class="keyword-tag">取引基盤について</span></td>
+            <td>元請との関係・受注の安定性・依存リスク・紹介チャネル</td>
+          </tr>
+          <tr>
+            <td><span class="keyword-tag">現場施工能力について</span></td>
+            <td>職人の技能・資格・高齢化リスク・外注依存度</td>
+          </tr>
+          <tr>
+            <td><span class="keyword-tag">管理体制について</span></td>
+            <td>原価管理の現状・帳票類の整備状況・IT利用状況</td>
+          </tr>
+          <tr>
+            <td><span class="keyword-tag">ROIの試算</span></td>
+            <td>受注増加・請求漏れ防止・事務工数削減の3軸で導入効果を試算。売上・粗利の増加イメージを年換算で提示します。</td>
+          </tr>
+          <tr>
+            <td><span class="keyword-tag">クロージング戦略</span></td>
+            <td>受注確度を上げるための次のアクション・懸念点の先回り</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 6: TIPS -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">6</span>
+      よくある使い方のヒント
+    </div>
+
+    <div class="card">
+      <h3>複数工種許可を持つ会社の場合</h3>
+      <p>例：電気＋通信、管工事＋水道施設など。<br>主力工種のナレッジを軸にしながら、複合的な課題パターンを補足してメモを生成します。入力時に「電気工事業（主力）＋通信工事業（副業）」のように記載すると精度が上がります。</p>
+    </div>
+
+    <div class="card" style="margin-top:12px;">
+      <h3>情報なしで「仮説立てて」と送った場合</h3>
+      <p>Botは工種を確認してから動作します。まず工種をお知らせください。</p>
+    </div>
+
+    <div class="card" style="margin-top:12px;">
+      <h3>商談後の振り返りにも使える</h3>
+      <p>商談中に出てきた新情報を追加して再度入力すると、次の商談に向けた仮説をアップデートできます。特に「管理体制について」の深掘りは、ヒアリングした内容をそのまま投げると有効です。</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4362.78 815">
+      <defs><style>.fc1{fill:#2e724c}.fc2{fill:#ffffff}</style></defs>
+      <g>
+        <path class="fc2" d="m579.22,495.4c-26.73,41.19-72.38,68.34-124.22,68.34-82.38,0-149.17-68.54-149.17-153.09,0-3.89.19-7.72.47-11.54,3.63-78.8,67.03-141.55,144.71-141.55,49.8,0,93.71,25.79,119.79,65.06l73.45-37.69-.6-1.06-28.79-51.68c-10.55-18.75-29.99-45.18-46.27-59.23l-11.53-9.94h-256.34l-109.13,193.89-28.5,50.97,28.5,49.8,109.13,194.07h256.33c21.09-15.68,44.6-46.21,57.48-69.12h0l26.22-46.6,3.03-5.38.6-1.07-65.17-34.17Z"/>
+        <path class="fc2" d="m1685.92,217.49h202.63c114.56,0,153.97,50.5,153.97,113.94,0,73.29-66.52,94.23-93,97.31,41.88,3.69,109.63,25.25,109.63,101.63s-71.44,121.95-160.13,121.95h-213.1V217.49Zm185.39,171.83c23.4,0,64.67-1.85,64.67-46.81,0-41.88-36.34-43.73-57.28-43.73h-89.3v90.54h81.91Zm-6.16,184.15c35.11,0,83.76-1.85,83.76-51.74,0-52.35-43.73-53.58-65.9-53.58h-93.61v105.32h75.75Z"/>
+        <path class="fc2" d="m2600.18,643.76v-196.53c0-29.91-8.55-54.93-46.39-54.93-43.33,0-49.44,30.52-49.44,73.24v178.22h-93.99v-318.6h95.21v28.07c15.26-18.31,45.17-36.01,89.72-36.01,64.7,0,98.87,32.96,98.87,97.65v228.88h-93.99Z"/>
+        <path class="fc2" d="m782.34,329.98v33.35c8.03-6.79,16.67-15.44,37.67-24.08,25.94-10.5,43.85-12.35,55.58-12.97v83.99l-31.5,4.94c-50.02,8.03-59.29,21-59.29,55.58v181.57h-94.49v-322.37h92.02Z"/>
+        <path class="fc2" d="m1551.43,329.98v-93.25h-93.87v93.25h-110.55v-11.73c0-23.47,3.09-31.5,42.61-31.5h17.29v-71.64c-3.71-.62-34.58-5.56-56.82-5.56-55.58,0-96.96,25.94-96.96,81.52v38.9h-50.64v7.41h0v58.05h0v4.89h50.64v252.02h94.49v-252.02h109.93v163.09c0,75.35,40.14,91.4,92.02,91.4,34.58,0,53.73-3.71,59.9-4.94v-73.49s-26.56.62-33.35.62c-14.82,0-24.7-4.94-24.7-26.56v-150.12h62.99v-70.36h-62.99Z"/>
+        <path class="fc2" d="m1176.78,652.35v-106.02h0v-132.36c0-77.81-83.37-92.64-138.95-92.64-70.4,0-135.87,29.03-135.87,100.05h95.11c2.47-14.2,9.88-37.67,50.02-37.67,34.58,0,36.44,27.79,36.44,38.91v17.91c-71.02,13.59-104.99,20.38-127.22,29.64-40.14,16.68-67.93,52.49-67.93,92.64,0,46.32,32.11,98.19,105.6,98.19,49.41,0,73.49-21,98.81-37.67v29.03h83.99Zm-93.25-140.19c0,45.7-28.41,79.05-65.46,79.05-27.17,0-36.44-21.61-36.44-32.73,0-14.21,8.03-29.64,40.76-40.14l61.14-20.38v14.2Z"/>
+        <path class="fc2" d="m2374.54,643.76v-104.77h0v-130.82c0-76.9-82.4-91.55-137.33-91.55-69.58,0-134.28,28.69-134.28,98.87h93.99c2.44-14.04,9.77-37.23,49.44-37.23,34.18,0,36.01,27.47,36.01,38.45v17.7c-70.19,13.43-103.76,20.14-125.73,29.29-39.67,16.48-67.14,51.88-67.14,91.55,0,45.78,31.74,97.04,104.37,97.04,48.83,0,72.63-20.75,97.65-37.23v28.69h83.01Zm-92.16-138.55c0,45.17-28.08,78.12-64.7,78.12-26.86,0-36.01-21.36-36.01-32.35,0-14.04,7.94-29.29,40.28-39.67l60.42-20.14v14.04Z"/>
+        <polygon class="fc2" points="2730 212.85 2730 643.75 2821.55 643.75 2821.55 544.88 2822.16 434.41 2822.16 212.85 2730 212.85"/>
+        <polygon class="fc2" points="2943.62 438.68 3053.48 325.16 2940.57 325.16 2837.42 434.41 2943.62 438.68"/>
+        <polygon class="fc1" points="2943.62 438.68 2837.42 434.41 2919.42 577.5 2958.88 643.75 3067.52 643.75 2943.62 438.68"/>
+        <path class="fc2" d="m3122.27,528.97c0-76.21,54.03-120.56,112.5-120.56s112.1,44.35,112.1,120.56-54.03,120.17-112.1,120.17-112.5-44.36-112.5-120.17Zm151.21,0c0-38.3-12.1-62.5-38.71-62.5s-39.11,24.2-39.11,62.5,12.09,62.1,39.11,62.1,38.71-24.19,38.71-62.1Z"/>
+        <path class="fc2" d="m3535.57,405.18c0-48.39,22.99-89.52,86.7-89.52,20.16,0,22.97-.25,33.05,3.79l.82,57.1c-7.26-2.83-15.73-4.84-23.39-4.84-15.73,0-25.4,8.47-25.4,31.45v10.88h40.73v56.05h-40.73v173.39h-71.78v-173.39h-75.81v173.39h-71.78v-173.39h-30.65v-53.23l30.65-2.42v-8.06c0-46.78,24.6-86.29,88.71-86.29,20.16,0,25.61.05,36.49,4.49l-.61,56.8c-7.26-3.23-14.11-5.24-26.61-5.24-14.52,0-26.21,9.27-26.21,29.84v8.06h75.81v-8.87Zm142.75-59.68c0-21.78,17.34-37.1,41.13-37.1s41.13,15.32,41.13,37.1-17.34,36.69-41.13,36.69-41.13-15.32-41.13-36.69Zm5.24,68.55h72.18v229.44h-72.18v-229.44Z"/>
+        <path class="fc2" d="m3792.02,528.97c0-76.21,56.45-120.56,120.57-120.56,27.82,0,49.6,9.68,66.94,24.6l-33.47,45.97c-10.48-8.87-19.35-12.5-29.43-12.5-31.45,0-51.21,24.2-51.21,62.5s20.56,62.1,48.79,62.1c14.52,0,28.23-6.86,39.92-16.13l27.42,47.18c-22.18,19.76-51.21,27.02-75.4,27.02-64.52,0-114.12-44.36-114.12-120.17Z"/>
+        <path class="fc2" d="m3992.42,528.97c0-74.6,53.23-120.56,108.87-120.56,66.13,0,98.39,47.98,98.39,110.89,0,12.5-1.61,25.4-3.23,30.65h-134.68c6.45,31.45,28.23,44.36,57.26,44.36,16.53,0,31.86-4.84,48.39-14.52l23.79,43.15c-23.79,16.94-55.24,26.21-82.26,26.21-65.73,0-116.53-44.36-116.53-120.17Zm146.38-25.81c0-22.98-10.09-39.92-36.29-39.92-19.76,0-37.1,12.5-41.94,39.92h78.23Z"/>
+      </g>
+    </svg>
+  </div>
+  <p>CraftBankoffice｜営業支援ツール　商談前仮説立てBot</p>
+</footer>
+
+</body>
+</html>
